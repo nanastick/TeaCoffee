@@ -53,11 +53,20 @@ public class Main extends JFrame {
 	// String write = Integer.toString(total);
 	public static void main(String[] args) {
 
+		new Main();
+		
+		 
+		 
+		 
+		
+		
+		
+		
 		/*String patteren = "d.m.y";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(patteren);
 		System.out.println(simpleDateFormat.format(new Date()));*/
 		
-		new Main();
+		
 
 	}// end main
 
@@ -178,30 +187,52 @@ public class Main extends JFrame {
 			if (e.getSource() == save) {
 				total = counterTeaCoffee + counterTees + counterProv3 + counterProv10 + counterProv20
 						+ counterUsedballs1 + counterUsedBalls5;
-				WriteToFile();
+				PrintWriter totalOuput = Main.writeToFile("\\Users\\keith\\Desktop\\TeaCoffee.txt");
+				createTotals(total,totalOuput);
+				System.out.println(total);
 
 			}
 
 		}
 	}// end listerner method
 
-	public void WriteToFile() {
+	private static PrintWriter writeToFile(String fileName) {
 
-		File file = new File("Shop_Takings.txt");
 
 		try {
-			FileWriter fw = new FileWriter(file, true);
+			
+			File totalCount = new File(fileName);
+			
+			PrintWriter infoToWrite = new PrintWriter(new BufferedWriter(new FileWriter(totalCount)));
+			
+			return infoToWrite;
+			
+			
+			
+			/*FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 
 			pw.println(date + message + total);
 
-			pw.close();
+			pw.close();*/
 
 		} catch (IOException e) {
 			System.out.println("Unable to write to file.");
+			
+			System.exit(0);
 		}
+		return null;
 
 	}// end Writetofile class
+	
+	private static void createTotals(int totals, PrintWriter totalOutPut) {
+		
+		String print = Integer.toString(totals);
+		
+		
+		totalOutPut.println(print);
+		
+	}
 
 }//END MAIN
